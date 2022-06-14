@@ -1,0 +1,11 @@
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.select{
+    border: 0;
+    color: grey;
+    background-color: transparent;
+    text-decoration: underline;
+}
