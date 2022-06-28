@@ -1,49 +1,50 @@
 import { Component } from "react";
-import CardList from "../components/InputCardList";
+import BudgetInput from "../components/BudgetInput";
+import ExpenseInputList from "../components/ExpenseInputList";
 
 export default class App extends Component {
   constructor() {
     super();
     //super has to be present for "this" to work
     this.state = {
-      budget: "",
-      cards: [
+      budget: 0,
+      expenseFields: [
         {
           id: this.uuid(),
           placeHolder: "rent",
+          value: 1,
         },
         {
           id: this.uuid(),
           placeHolder: "health",
-          value: "",
+          value: 2,
         },
         {
           id: this.uuid(),
           placeHolder: "insurance",
-          value: "",
+          value: 3,
         },
         {
           id: this.uuid(),
           placeHolder: "other",
-          value: "",
+          value: 4,
         },
         {
           id: this.uuid(),
           placeHolder: "food",
-          value: "",
+          value: 5,
         },
       ],
     };
-    
   }
-  delCard = (e) => {
-    let Cards = this.state.cards;
+  delExpense = (e) => {
+    let expenseFields = this.state.expenseFields;
     let id = e.target.getAttribute("id");
-    var filteredCards = this.state.cards.filter(function (i) {
+    var filteredExpenses = this.state.expenseFields.filter(function (i) {
       return i.id !== id;
     });
     this.setState({
-      cards: filteredCards,
+      expenseFields: filteredExpenses,
     });
   };
   uuid = (len) => {
@@ -66,28 +67,66 @@ export default class App extends Component {
 
     return string;
   };
-  sortBudget = ()=>{
+  sortBudget = () => {
+    let budget = this.state.budget;
+    let totalExpenses = this.state.expenseFields.filter(function (expenses) {
+      return expenses;
+    });
 
-  }
-  onInput = (e) =>{
+    let FilteredExpenses = totalExpenses.map((expense, i) => {
+      // return expense.value
+      let expenseArray = totalExpenses[i].value;
+      return expenseArray;
+    });
+    let expenseSum = 0;
+    for (let index = 0; index < FilteredExpenses.length; index++) {
+      expenseSum += FilteredExpenses[index];
+    }
+
+    console.log("total expense:", expenseSum);
+    console.log("budget:", budget);
+    console.log("result:", budget - expenseSum);
+  };
+  onExpenseInput = (e) => {
+    let expenses = this.state.expenseFields;
     let id = e.target.getAttribute("id");
-  }
-  componentDidMount(){
-    document.getElementById("sort-button").addEventListener("click", this.sortBudget())
+    let updatedExpenses = expenses.filter(function (i) {
+      return i.value;
+    });
+    
+    console.log(updatedExpenses);
+    // this.setState({
+    //   expenseFields: updatedExpenses,
+    // });
+  };
+  onBudgetInput = (e) => {
+    let budget = this.state.budget;
+    this.setState({
+      budget: e.target.value,
+    });
+    // console.log(e.target.value);
+  };
+  componentDidMount() {
+    document
+      .getElementById("sort-button")
+      .addEventListener("click", this.sortBudget());
+    return;
   }
   render() {
     return (
       <>
-        enter your budget for the{" "}
-        <select className="select" id="">
-          <option value="*javascript month number">month</option>
-          <option value="7">week</option>
-        </select>
+        <BudgetInput inputFunction={this.onBudgetInput} />
         <div>
-          <CardList onInput={this.onInput} cardDel={this.delCard} cards={this.state.cards} />
+          <ExpenseInputList
+            onInput={this.onExpenseInput}
+            expenseDel={this.delExpense}
+            expenses={this.state.expenseFields}
+          />
         </div>
         <div>
-          <button id={"sort-button"}>sort</button>
+          <button id={"sort-button"} onClick={this.sortBudget}>
+            sort
+          </button>
         </div>
       </>
     );

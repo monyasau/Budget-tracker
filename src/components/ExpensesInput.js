@@ -1,4 +1,4 @@
-export default function InputCard({ delCard, placeHolder, id, handleInput }) {
+export default function ExpensesInput({ delExpense, placeHolder, id, handleInput }) {
   return (
     <>
       <div
@@ -7,7 +7,7 @@ export default function InputCard({ delCard, placeHolder, id, handleInput }) {
       >
         <input type="number" placeholder={placeHolder} onChange={handleInput} />
         <div>
-          <button className="rounded ms-auto" id={id} onClick={delCard}>
+          <button className="rounded ms-auto" id={id} onClick={delExpense}>
             &times;
           </button>
         </div>
