@@ -99,7 +99,7 @@ export default class App extends Component {
 
     let filteredExpenses = expenses.map((expense, i) => {
       if (expenses[i].id === id) {
-        updatedExpenses
+        
         // console.log(expenses[i].id);
         // console.log(id);
         
