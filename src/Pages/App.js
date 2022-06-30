@@ -90,11 +90,21 @@ export default class App extends Component {
   onExpenseInput = (e) => {
     let expenses = this.state.expenseFields;
     let id = e.target.getAttribute("id");
-    let updatedExpenses = expenses.filter(function (i) {
-      return i.value;
+   let filteredItems = expenses.filter(function (i) {
+    return i.id === id;
     });
+    // let FilteredExpenses = totalExpenses.map((expense, i) => {
+    //   // return expense.value
+    //   let expenseArray = totalExpenses[i].value;
+    //   return expenseArray;
+    // });
+    // console.log(filteredItems)
     
-    console.log(updatedExpenses);
+    // let updatedExpenses = expenses.filter(function (i) {
+    //   return i.value;
+    // });
+
+    // console.log(updatedExpenses);
     // this.setState({
     //   expenseFields: updatedExpenses,
     // });
