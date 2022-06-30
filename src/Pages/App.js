@@ -1,5 +1,6 @@
 import { Component } from "react";
 import BudgetInput from "../components/BudgetInput";
+import DisplayResult from "../components/DisplayResults";
 import ExpenseInputList from "../components/ExpenseInputList";
 
 export default class App extends Component {
@@ -40,6 +41,7 @@ export default class App extends Component {
   delExpense = (e) => {
     let expenseFields = this.state.expenseFields;
     let id = e.target.getAttribute("id");
+    
     var filteredExpenses = this.state.expenseFields.filter(function (i) {
       return i.id !== id;
     });
@@ -90,16 +92,26 @@ export default class App extends Component {
   onExpenseInput = (e) => {
     let expenses = this.state.expenseFields;
     let id = e.target.getAttribute("id");
-   let filteredItems = expenses.filter(function (i) {
-    return i.id === id;
+
+    var updatedExpenses = this.state.expenseFields.filter(function (i) {
+      return i.id !== id;
     });
-    // let FilteredExpenses = totalExpenses.map((expense, i) => {
-    //   // return expense.value
-    //   let expenseArray = totalExpenses[i].value;
-    //   return expenseArray;
-    // });
-    // console.log(filteredItems)
-    
+
+    let filteredExpenses = expenses.map((expense, i) => {
+      if (expenses[i].id === id) {
+        updatedExpenses
+        // console.log(expenses[i].id);
+        // console.log(id);
+        
+      }
+      // return expense.value
+      // console.log(id);
+      // let expenseArray = expenses[i].value;
+      // console.log(expenseArray);
+      // return expenseArray;
+    });
+    // console.log(expenses)
+
     // let updatedExpenses = expenses.filter(function (i) {
     //   return i.value;
     // });
@@ -138,6 +150,7 @@ export default class App extends Component {
             sort
           </button>
         </div>
+        <DisplayResult budget={this.state.budget} />
       </>
     );
   }
